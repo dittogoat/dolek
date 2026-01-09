@@ -10,6 +10,8 @@
   "author": "Dominik Knyt",
   "license": "ISC",
   "dependencies": {
-    "express": "^5.1.0"
+    "connect-flash": "^0.1.1",
+    "express": "^5.2.1",
+    "express-session": "^1.18.2"
   }
 }
