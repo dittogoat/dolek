@@ -53,18 +53,7 @@ app.use((req,res,next)=>{
 		cur_history.push(req.originalUrl)
 	}
 	res.cookie('history',cur_history,{maxAge: 1000 * 60 * 60})
-	if (req.cookies.color) {
-		res.write(`<style>	
-				body {
-					background-color: ${req.cookies.color}
-				}
-				</style>
-			`)
-		
-	}
 	next()
-	res.end()
-	//tu mam problem
 })
 
 // #endregion
@@ -126,7 +115,17 @@ app.get('/dashboard', (req, res) => {
 	const lang = req.cookies.language || "brak";
 	const color = req.cookies.color || "";
 
-	res.send(`
+	if (req.cookies.color) {
+		res.write(`<style>	
+				body {
+					background-color: ${req.cookies.color}
+				}
+				</style>
+			`)
+		
+	}
+
+	res.write(`
 		${htmlHeader}
 		<h1>Witaj, ${username}!</h1>
 		<p>Wybrany motyw: ${theme}</p>
@@ -137,6 +136,7 @@ app.get('/dashboard', (req, res) => {
 		
 		${htmlFooter}
 	`);
+	res.end()
 });
 // #endregion
 
